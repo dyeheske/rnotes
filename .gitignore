@@ -1,0 +1,34 @@
+# ================
+# .gitignore file
+# ================
+# Compiled files:
+**/__pycache__/
+*.pyc 
+
+# Logs:
+logs
+*.log
+
+# VSCode private files:
+.vscode
+**/*.code-workspace
+
+# Virtual environment and related files:
+venv
+**/*.swp
+**/*.swo
+
+# Test coverage and profiling data:
+**/.coverage
+**/.coverage.*
+tests/coverage_html
+tests/coverage.txt
+tests/coverage.combined
+tests/coverage.xml
+tests/full_coverage_html
+prof/
+
+# etc:
+.idea/
+venv/
+*.zip

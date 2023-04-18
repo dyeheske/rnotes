@@ -1,0 +1,35 @@
+{#============================================================
+Release notes template.
+
+To read more about Jinja templates:
+  https://realpython.com/primer-on-jinja-templating/
+============================================================#}
+# `{{tool_name}}` - `{{version_name}}`
+
+## Highlights
+{%- for issue in highlights %}
+  * **{{issue.description}}**
+{%- endfor %}
+{% for topic in topics %}
+
+## {{topic.name}}
+  {%- for issue_type, issues in topic.type_to_issues.items() %}
+  * ### {{issue_type}}s:
+      {%- for issue in issues %}
+    * [[{{issue.ticket_number}}]({{issue.ticket_url}})]: **{{issue.ticket_title}}**  
+      {{issue.description}}  
+{% if issue.image %}
+      {{issue.image}}
+{% endif -%}
+      {%- endfor %}
+  {%- endfor %}
+{%- endfor %}
+
+### User guide:
+  * [Dummy tool user guide - Intel Enterprise Wiki]({{user_guide_url}})
+
+### For more information, contact:
+{%- for contact in contacts %}
+  * {{contact["name"]}}: {{contact["email"]}}
+{%- endfor %}
+
