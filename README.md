@@ -19,7 +19,7 @@
       pip3 install -r docs/requirements.txt
       ```
   3. **Set** your personal [GitHub token](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) to environment variable:<br>
-      `csh` example of a dummy token:
+      *csh* example of a dummy token:
       ```bash
       setenv GITHUB_TOKEN gdp_Vj34lfnjvA42oaocm4knt235ZA
       ```
@@ -46,7 +46,7 @@ Your GitHub repository should have the following files:
 ```
 An **example** of such repository can be found here: [dyeheske/dummy_tool](https://github.com/dyeheske/dummy_tool)
 
-### `Note`:<br>
+### Note:<br>
 It is not mandatory to have these files because it is possible to pass them as inputs files, by running *rnotes* via the CLI.
 
 # Authors
