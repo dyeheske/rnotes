@@ -47,7 +47,7 @@
       (note that it is not mandatory to have these files because it is possible to pass them as inputs files, by running *rnotes* via the CLI or Python API)<br>
 
   2. In order to generate release notes, you **must** have a personal access token (a.k.a PAT), and if you don't have yet you can see how to do it [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-personal-access-token-classic). This will allow the tool to query GitHub data base and also allow you to generate release notes for a private GitHub repositories and protected repositories (like enterprise's repositories).
-<br>
+
 
 # How it works?
 The algorithm to generate release notes is the following:<br>
@@ -59,7 +59,7 @@ The algorithm to generate release notes is the following:<br>
 See the following diagrams of the rnotes flow with the needed inputs/output:  
   * [General diagram ↗️](https://github.com/dyeheske/rnotes/blob/master/docs/images/rnotes_black_box.png)
   * [Detailed diagram ↗️](https://github.com/dyeheske/rnotes/blob/master/docs/images/rnotes.png)
-<br>
+
 
 # Authors
 See [AUTHORS.md](https://github.com/dyeheske/rnotes/blob/master/AUTHORS.md)
