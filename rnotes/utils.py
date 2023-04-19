@@ -24,19 +24,19 @@ class LogLevel:
         """
         self.log_level = log_level
         self.logger = logging.getLogger()
-        self.handler = self.logger.handlers[0] if self.logger.handlers else None
+        self.handlers = self.logger.handlers if self.logger.handlers else ()
         self.current_level = self.logger.getEffectiveLevel()
 
     def __enter__(self):
         """Enter function - log level from now will be changed to the log level given in the __init__ method"""
-        if self.handler:
-            self.handler.setLevel(self.log_level)
+        for handler in self.handlers:
+            handler.setLevel(self.log_level)
         return self
 
     def __exit__(self, *args, **kwds):
         """Exit function - log level will be changed to the initial log level"""
-        if self.handler:
-            self.handler.setLevel(self.current_level)
+        for handler in self.handlers:
+            handler.setLevel(self.current_level)
 
 
 def init_log(path: str = None, level: str = "NOTSET", jupyter: bool = False) -> None:
@@ -47,12 +47,11 @@ def init_log(path: str = None, level: str = "NOTSET", jupyter: bool = False) -> 
         level (str, optional): Level of the log file. Defaults to "NOTSET".
         jupyter (bool, optional): True if this log will be run in Jupyter Notebook. Defaults to False.
     """
-    FORMAT = "%(message)s"
+    log_format = "%(message)s"
     logging.basicConfig(
         level=level or "NOTSET",
-        format=FORMAT,
-        datefmt="[%X]",
-        handlers=[RichHandler(console=Console(file=open(path, "w") if path else None, force_jupyter=jupyter))],
+        format=log_format,
+        handlers=[RichHandler(console=Console(file=open(path, "w") if path else None, force_jupyter=jupyter, width=200))],
     )
 
 

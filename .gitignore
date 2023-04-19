@@ -32,3 +32,6 @@ prof/
 .idea/
 venv/
 *.zip
+**/.nfs*
+*.env
+*.html
