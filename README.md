@@ -49,6 +49,7 @@
   2. In order to generate release notes, you **must** have a personal access token (a.k.a PAT), and if you don't have yet you can see how to do it [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-personal-access-token-classic). This will allow the tool to query GitHub data base and also allow you to generate release notes for a private GitHub repositories and protected repositories (like enterprise's repositories).
 <br>
 <br>
+
 # How it works?
 The algorithm to generate release notes is the following:<br>
   1. Fetch all the pull requests between the period of time of the given 2 tags (the commit date that every tag is attached to) from the given GitHub repository and get their first comment text.

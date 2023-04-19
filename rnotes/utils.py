@@ -52,6 +52,7 @@ def init_log(path: str = None, level: str = "NOTSET", jupyter: bool = False) -> 
         level=level or "NOTSET",
         format=log_format,
         handlers=[RichHandler(console=Console(file=open(path, "w") if path else None, force_jupyter=jupyter, width=200))],
+        force=True,
     )
 
 
