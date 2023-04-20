@@ -7,7 +7,7 @@ from rich import pretty, traceback
 import fire
 
 sys.path.insert(0, ".")
-from rnotes.utils import eval_file, import_file, init_log, get_file_name
+from rnotes.utils import eval_file, import_file, init_log, get_file_name, to_html
 from rnotes.query import GithubPullRequest, GithubRepository, get_github_repository
 from rnotes.parser import CommentParser, load_grammar
 from rnotes.process import ReleaseData, Issue
@@ -28,6 +28,7 @@ def generate_release_notes(
     release_notes_path: str | Path = None,
     additional_content_path: str | Path = None,
     token: str = None,
+    html: bool = True,
 ) -> None:
     """Create a release notes for the given repository.
 
@@ -48,6 +49,7 @@ def generate_release_notes(
         additional_content_path (str | Path, optional): Additional content file (.py)
             Defaults to the file in ".rnotes" of the given repository.
         token (str, optional): GitHub personal token. Defaults: environment variable: GITHUB_TOKEN
+        html (bool, optional): If True, generates html file of the release notes.
     """
     # Query the GitHub's repository and all comments between the 2 tags:
     repository: GithubRepository = get_github_repository(repository_name=repository_name, token=token)
@@ -68,7 +70,9 @@ def generate_release_notes(
     # Add additional content:
     additional_content = {}
     additional_content_path = additional_content_path or repository.download_file(".rnotes/additional_content.py")
-    if additional_content_path and (additional_content := eval_file(additional_content_path)):
+    if additional_content_path:
+        logging.info("Loading the additional content file from: %s", additional_content_path.resolve())
+        additional_content = eval_file(additional_content_path)
         assert isinstance(additional_content, dict), f"Failed to eval the file: {additional_content_path} (expected dict)"
     version_name = version_name or to_tag
     tool_name = additional_content.get("tool_name") or repository_name.split("/")[1]
@@ -86,7 +90,11 @@ def generate_release_notes(
         additional_content=additional_content,
     )
     path = (Path(output_dir) / file_name).resolve()
-    logging.info("Successfully written release notes to: %s", path.resolve())
+    logging.info("Release notes path: %s", path.resolve())
+    if not html:
+        return
+    html_path = to_html(path)
+    logging.info("Release notes path (HTML): %s", html_path.resolve())
 
 
 if __name__ == "__main__":
