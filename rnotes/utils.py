@@ -1,12 +1,14 @@
 """This module implements utilities functions for rnotes"""
 from __future__ import annotations
 import ast
+import os
 from pathlib import Path
 import importlib.machinery
 import importlib.abc
 from types import ModuleType
 from typing import Any, Union
 import logging
+import markdown
 from rich.logging import RichHandler
 from rich.console import Console
 
@@ -177,3 +179,27 @@ def get_file_name(tool_name: str, version_name: str, sfx: str = ".md") -> str:
         str: the file name.
     """
     return f"release_notes_of-{'_'.join(tool_name.split()).lower()}-{'_'.join(version_name.replace('.', '_').split()).lower()}{sfx}"
+
+
+def to_html(path: Path, suffix: str = "") -> Path:
+    """Converts .md/.txt file to html file.
+
+    Args:
+        path (Path): path of the given file.
+        suffix (str, optional): suffix to the html new file name. Defaults to "".
+
+    Returns:
+        Path: The path object of the new file.
+    """
+    html_file_path = None
+    content = path.read_text()
+    str_path = str(path.resolve())
+    if path.suffix == ".md":
+        html_content = markdown.markdown(content)
+    else:
+        html_content = '<html>\n<head>\n<title>' + str_path + '</title>\n</head>\n<body>\n<pre>\n'
+        html_content += content.replace('<', '&lt;').replace('>', '&gt;')
+        html_content += '\n</pre>\n</body>\n</html>'
+    html_file_path = Path(os.path.splitext(str_path)[0] + f"{suffix}.html")
+    html_file_path.write_text(html_content)
+    return html_file_path

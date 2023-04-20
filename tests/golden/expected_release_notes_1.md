@@ -23,7 +23,7 @@
 
 ## Clock automation
   * ### Bugs:
-    * [[12345](https://hsdes.intel.com/appstore/article/#/12345)]: **Clock automation failed to do tie offs connections**  
+    * [[32547](https://hsdes.intel.com/appstore/article/#/32547)]: **Clock automation failed to do tie offs connections**  
       The root cause for this issue is a bug in the code that doing the tie offs, so a corner happened when the tie off value was not match to the dimensions of the clock port.  
 
   * ### Enhancements:

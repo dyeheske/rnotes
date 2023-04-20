@@ -69,7 +69,7 @@ def load_template(path: str | Path):
     """
     path = path if path is None or isinstance(path, Path) else Path(path)
     assert path.exists(), f"No such file: {path.resolve()}"
-    logging.debug("Loading the JinjaTemplate file from: %s", path.resolve())
+    logging.info("Loading the release notes template file from: %s", path.resolve())
     file_loader = FileSystemLoader(str(path.parent.resolve()))
     env = Environment(loader=file_loader)
     template = env.get_template(path.name)

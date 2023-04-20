@@ -109,15 +109,15 @@ class CommentParser:
                     )
                     continue
                 comment_text = " ".join(pull_request.comment.split())
+                logging.info("Parsing PR: '%s' (url: '%s')", pull_request.name, pull_request.url)
                 comment = self.parse_comment(comment_text=comment_text)
-                logging.info("Successfully parsed PR: '%s' (url: '%s')", pull_request.name, pull_request.url)
                 if comment.get(Tokens.INCLUDE, "").lower() == "no":
                     logging.info("Ignored (as expected) the pull request: '%s' (url: '%s')", pull_request.name, pull_request.url)
                     continue
                 all_comments.append(comment)
             except ParseError as error:
                 logging.error(
-                    "Parser failed to parse the pull request: '%s' (url: '%s'), \nreason: %s: \"%s\"",
+                    "Failed to parse the pull request: '%s' (url: '%s'), \nreason: %s: \"%s\"",
                     pull_request.name,
                     pull_request.url,
                     type(error).__name__,
@@ -151,5 +151,5 @@ def load_grammar(path: str | Path) -> Grammar:
     assert path.exists(), f"No such file: {path.resolve()}"
     grammar_str = eval_file(path)
     assert isinstance(grammar_str, str), f"File: {path.resolve()} must ends with a python string " "that represents the grammar"
-    logging.debug("Loading the grammar file from: %s", path.resolve())
+    logging.info("Loading the grammar file from: %s", path.resolve())
     return loads_grammar(grammar_str)

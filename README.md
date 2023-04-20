@@ -3,7 +3,18 @@
 </p>
 <h2 align="center">Auto generate release notes from GitHub</h2>
 
+# Contents
+- [Contents](#contents)
+- [Usage](#usage)
+  - [Interactive](#interactive)
+  - [CLI](#cli)
+- [Pre requests](#pre-requests)
+- [How it works?](#how-it-works)
+- [Authors](#authors)
+
 # Usage
+Rnotes generates release notes file for any GitHub repository by gathering, parsing and processing all the changes that done between 2 tags. To generate release notes, there are 2 ways: interactive mode, using Jupyter Notebook, or CLI mode. Note that you need to make sure you have all the pre requests before running this tool.
+
 ## Interactive
 * **Run** in Jupyter Notebook:  
     [![Open All Collab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dyeheske/rnotes/blob/master/docs/rnotes.ipynb)
@@ -51,7 +62,7 @@
 
 # How it works?
 The algorithm to generate release notes is the following:<br>
-  1. Fetch all the pull requests between the period of time of the given 2 tags (the commit date that every tag is attached to) from the given GitHub repository and get their first comment text.
+  1. Fetch all the pull requests between the period of time of the given 2 tags (the commit date that every tag is attached to) from the given GitHub repository and get their first comment text ([tree example ↗️](https://github.com/dyeheske/rnotes/blob/master/docs/images/tags_in_dummy_tool.png)).
   2. Parse every comment text based on the given grammar file.
   3. Process all the data and order it.
   4. Write the data based on the given template file.
