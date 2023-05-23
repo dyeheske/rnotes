@@ -3,6 +3,7 @@
 </p>
 <h2 align="center">Auto generate release notes from GitHub</h2>
 
+Rnotes generates release notes file for any GitHub repository by gathering, parsing and processing all the changes that done between 2 tags. To generate release notes, there are 2 ways: interactive mode, using Jupyter Notebook, or CLI mode. Note that you need to make sure you have all the pre requests before running this tool.
 # Contents
 - [Contents](#contents)
 - [Usage](#usage)
@@ -13,7 +14,6 @@
 - [Authors](#authors)
 
 # Usage
-Rnotes generates release notes file for any GitHub repository by gathering, parsing and processing all the changes that done between 2 tags. To generate release notes, there are 2 ways: interactive mode, using Jupyter Notebook, or CLI mode. Note that you need to make sure you have all the pre requests before running this tool.
 
 ## Interactive
 * **Run** in Jupyter Notebook:  
