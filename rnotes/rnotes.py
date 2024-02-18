@@ -76,7 +76,7 @@ def generate_release_notes(
     additional_content = {}
     additional_content_path = additional_content_path or Path(repository.download_file(".rnotes/additional_content.py"))
     if additional_content_path:
-        logging.info("Loading the additional content file from: %s", additional_content_path.resolve())
+        logging.info("Loading the additional content file from: %s", Path(additional_content_path).resolve())
         additional_content = eval_file(additional_content_path)
         assert isinstance(additional_content, dict), f"Failed to eval the file: {additional_content_path} (expected dict)"
     version_name = version_name or to_tag
