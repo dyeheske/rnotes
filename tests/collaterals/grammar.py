@@ -41,17 +41,17 @@ all_types = [
     "Enhancement",
 ]
 # Grammar:
-fr"""
+grammar = fr"""
     # Top of tree:
     release_notes           = etc release_notes_name ticket_line type_line topic_line highlight_line ignore_line description_line image_line rest
 
     # Grammar rules:
-    ticket_line             = etc ticket_name etc lspar lspar ticket_number rspar lpar ticket_url rpar rspar ws dash ws tick ticket_title tick etc ticket_line*
+    ticket_line             = etc ticket_name etc lspar lspar ticket_number rspar lpar ticket_url rpar rspar word_space dash word_space tick ticket_title tick etc ticket_line*
     type_line               = etc type_name etc tick type tick  etc
     topic_line              = etc topic_name etc tick topic tick  etc
     highlight_line          = etc highlight_name etc tick is_highlight tick
     ignore_line             = etc ignore_name etc tick include tick
-    description_line        = etc description_name etc three_tick text_name ws description three_tick
+    description_line        = etc description_name etc greater_than etc description
     image_line              = etc image_md*
 
     # Tokens for release notes:
@@ -73,17 +73,18 @@ fr"""
     highlight_name          = "Highlight"
     description_name        = "Description"
     ignore_name             = "Add to release notes"
-    text_name               = "text"
 
     # Special characters:
     etc                     = ~r"[#|\*|:| |\s]*"  # mark down characters or new \s
     rest                    = ~r"(.|\s)*"
-    ws                      = ~"\s*"
+    word_space              = ~"\s*"
     lspar                   = "["
     rspar                   = "]"
     lpar                    = "("
     rpar                    = ")"
     tick                    = "`"
-    three_tick              = "```"
+    greater_than            = ">"
     dash                    = "-"
 """
+
+grammar  # pylint: disable=pointless-statement
