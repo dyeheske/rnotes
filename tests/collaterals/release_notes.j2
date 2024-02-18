@@ -5,16 +5,21 @@ To read more about Jinja templates:
   https://realpython.com/primer-on-jinja-templating/
 ============================================================#}
 # `{{tool_name}}` - `{{version_name}}`
-
+---
 ## Highlights
+{% if highlights %}
 {%- for issue in highlights %}
   * **{{issue.description}}**
 {%- endfor %}
+{%- else %}
+  * **NA**
+{% endif -%}
+## Changes
 {% for topic in topics %}
 
-## {{topic.name}}
+* ### `{{topic.name}}`
   {%- for issue_type, issues in topic.type_to_issues.items() %}
-  * ### {{issue_type}}s:
+  * **{{issue_type}}s**:
       {%- for issue in issues %}
     * [[{{issue.ticket_number}}]({{issue.ticket_url}})]: **{{issue.ticket_title}}**  
       {{issue.description}}  
@@ -23,13 +28,29 @@ To read more about Jinja templates:
 {% endif -%}
       {%- endfor %}
   {%- endfor %}
+  ---
 {%- endfor %}
 
-### User guide:
-  * [Dummy tool user guide - Intel Enterprise Wiki]({{user_guide_url}})
+#### Statistics:
+{%- for type, issues in type_to_issue.items() %}
+  * Total *{{type}}s*: {{len(issues)}}  
+{%- endfor %}
+---
+### Release area:
+  * **Linux**: /p/hdk/rtl/proj_tools/socbuilder_client/socb-eng-dmrimh-{{version_name.split("-")[-1]}}
+  * **Windows**: \\ger.corp.intel.com\ec\proj\DPGEC\tmg\dts\Tools\DTS CADRoot Releases\soc_builder
 
-### For more information, contact:
+### Useful Links:
+{%- for name, url in name_to_url.items() %}
+  * [{{name}}]({{url}})
+{%- endfor %}
+
+### Contacts:
+| Name | Email | Site |
+|----------|----------|----------|
 {%- for contact in contacts %}
-  * {{contact["name"]}}: {{contact["email"]}}
+| {{contact["name"]}} | {{contact["email"]}} | {{contact["site"]}} |
 {%- endfor %}
 
+---
+*Auto generated file by: `rnotes`*

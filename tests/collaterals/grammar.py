@@ -30,42 +30,23 @@ def sequence_to_regex(sequence: list[str]) -> str:
     return fr'~r"({res})"'
 
 
-string_regex       = r'~r"[\w| |\n|_|\.|,|\']+"'
+string_regex       = r'~r"[\w| |\n|_|\.|,|\'|\-|:]+"'
 url_string_regex   = r'~r"[\w|/|:|#|=|\.|_]+"'
 bool_regex         = r'~r"(yes|no)"i'
 image_string_regex = r'~r"!\[image\]\(.*?\)"i'
 
-# Define the domains of the tool:
-all_topics = [
-    "SideBand automation",
-    "Clock automation",
-    "Reset automation",
-    "Adapters automation",
-    "Catalog",
-    "Assembly",
-    "GUI",
-    "Other",
-]
 # Define the issue types:
 all_types = [
     "Bug",
     "Enhancement",
-    "Refactor",
-    "Clean up",
-    "Missing functionality",
-    "Performance",
-    "Reporting",
-    "Tutorials",
-    "Other",
 ]
-
 # Grammar:
 fr"""
     # Top of tree:
     release_notes           = etc release_notes_name ticket_line type_line topic_line highlight_line ignore_line description_line image_line rest
 
     # Grammar rules:
-    ticket_line             = etc ticket_name etc lspar lspar ticket_number rspar lpar ticket_url rpar rspar ws dash ws tick ticket_title tick etc
+    ticket_line             = etc ticket_name etc lspar lspar ticket_number rspar lpar ticket_url rpar rspar ws dash ws tick ticket_title tick etc ticket_line*
     type_line               = etc type_name etc tick type tick  etc
     topic_line              = etc topic_name etc tick topic tick  etc
     highlight_line          = etc highlight_name etc tick is_highlight tick
@@ -77,8 +58,8 @@ fr"""
     ticket_number  = {string_regex}
     ticket_url     = {url_string_regex}
     ticket_title   = {string_regex}
-    type           = {sequence_to_regex(all_types)}
-    topic          = {sequence_to_regex(all_topics)}
+    type           = {string_regex}
+    topic          = {string_regex}
     is_highlight   = {bool_regex}
     include        = {bool_regex}
     description    = {string_regex}

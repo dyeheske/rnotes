@@ -143,6 +143,31 @@ class GithubRepository:
                 for pull_request in sorted(pull_requests, key=lambda pr: pr.merged_at)
             ]
 
+    def get_pull_requests_by_commit(self, commit_sha_from: str, commit_sha_to: str) -> list[GithubPullRequest]:
+        """Get all the pull requested that merged between the given 2 commits sha, based on the time that the pull requested merged,
+        and the time that the commit of each tag created.
+
+        Args:
+            from_tag_name (str): tag to start the query.
+            to_tag_name (str, optional): tag to end the query. Defaults to None (all the commits from the `from_tag`).
+
+        Returns:
+            list[GithubPullRequest]: List of all the pull requests (GithubPullRequest object) between the 2 tags.
+        """
+        with LogLevel(logging.INFO if "DEBUG" not in os.environ else logging.DEBUG):
+            from_date = self._repository.get_commit(sha=commit_sha_from).commit.author.date
+            to_date = self._repository.get_commit(sha=commit_sha_to).commit.author.date
+            pull_requests = self.get_pull_requests_between_dates(from_date=from_date, to_date=to_date)
+            return [
+                GithubPullRequest(
+                    name=pull_request.title,
+                    url=pull_request.html_url,
+                    author=pull_request.user.login,
+                    comment=pull_request.body,
+                )
+                for pull_request in sorted(pull_requests, key=lambda pr: pr.merged_at)
+            ]
+
 
 def get_repository(github: Github, repository_name: str) -> Optional[Repository]:
     """Get the github.Repository instance, based on the given repository_name and the GitHub instance.

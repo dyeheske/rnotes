@@ -53,7 +53,15 @@ def init_log(path: str = None, level: str = "NOTSET", jupyter: bool = False) -> 
     logging.basicConfig(
         level=level or "NOTSET",
         format=log_format,
-        handlers=[RichHandler(console=Console(file=open(path, "w") if path else None, force_jupyter=jupyter, width=200))],
+        handlers=[
+            RichHandler(
+                console=Console(
+                    file=open(path, "w") if path else None,
+                    force_jupyter=jupyter,
+                    width=150
+                )
+            )
+        ],
         force=True,
     )
 
