@@ -51,6 +51,8 @@ class ReleaseNotesWriter:
         release_data_content = dict(
             topics=release_data.topics,
             highlights=release_data.highlights,
+            type_to_issue=release_data.type_to_issue,
+            len=len,
         )
         logging.debug("Rendering the Jinja Template with the content")
         output = self._template.render(**(release_data_content | additional_content))

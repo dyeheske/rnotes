@@ -133,3 +133,14 @@ class ReleaseData:
             list[Issue]: All the issues the marked with the given type_of_issue.
         """
         return [issue for issue in self._issues if issue.type == type_of_issue]
+
+    @cached_property
+    def type_to_issue(self) -> dict[str, Issue]:
+        """
+        Returns:
+            dict[str, Issue]: Mapping between the type to all the issues that has this issue.
+        """
+        res = {}
+        for issue in self._issues:
+            res.setdefault(issue.type, []).append(issue)
+        return res
